@@ -26,13 +26,17 @@
     let message = ""; // Message to display when zones are clicked
     let score = 0; // Score variable
     let interactions = 0; // Interactions counter
-    const totalZones = 3; // Total number of interactive zones
+    const totalZones = 6; // Total number of interactive zones
 
     // Define interactive zones
     const zones = [
-      { x: 200, y: 200, w: 100, h: 100, name: "phone", message: "The owner is studying, phone cannot be answered." },
-      { x: 500, y: 200, w: 150, h: 100, name: "computer", message: "The computer is locked with a password." },
-      { x: 300, y: 500, w: 120, h: 80, name: "book", message: "The book is open to a difficult chapter." }
+      { x: 200, y: 200, w: 100, h: 100, name: "phone", message: "The owner is studying, phone cannot be answered.", score: true },
+      { x: 500, y: 200, w: 150, h: 100, name: "computer", message: "The computer is unlocked.", score: true },
+      { x: 300, y: 500, w: 120, h: 80, name: "book", message: "The book is open to a difficult chapter.", score: true },
+      { x: 400, y: 100, w: 70, h: 70, name: "pen", message: "This pen is out of ink.", score: true },
+      { x: 600, y: 300, w: 100, h: 150, name: "flower vase", message: "The flower vase has a beautiful arrangement.", score: false },
+      { x: 700, y: 400, w: 80, h: 80, name: "hair", message: "Some hair is on the table.", score: false },
+      // Add more zones as needed, setting score: false for non-scoring objects
     ];
 
     function preload() {
@@ -55,7 +59,7 @@
           rect(zone.x, zone.y, zone.w, zone.h);
         });
 
-        // Display the clicked message
+        // Display the clicked message and object name
         fill(0);
         textSize(20);
         textAlign(CENTER, CENTER);
@@ -72,7 +76,7 @@
       } else {
         // Display ending screen
         background(200);
-        fill(0);
+        (fill(0));
         textSize(32);
         textAlign(CENTER, CENTER);
         text("Game Over! Final Score: " + score, width / 2, height / 2);
@@ -89,8 +93,10 @@
             mouseY > zone.y &&
             mouseY < zone.y + zone.h
           ) {
-            message = zone.message; // Set the message when a zone is clicked
-            score += 10; // Increase the score
+            message = zone.name + ": " + zone.message; // Set the message when a zone is clicked
+            if (zone.score) {
+              score += 10; // Increase the score only for correct choices
+            }
             interactions++; // Increase the interaction count
 
             // Check if all zones have been clicked
