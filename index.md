@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>P5.js Centered Game with Background</title>
+  <title>P5.js Game with Coordinates</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.min.js"></script>
   <style>
     /* Center canvas on the page */
@@ -64,13 +64,23 @@
       if (ball.y - ball.size / 2 < 0 || ball.y + ball.size / 2 > height) {
         ball.dy *= -1;
       }
+
+      // Display the current mouse coordinates
+      displayCoordinates();
     }
 
     function mousePressed() {
       // Change ball color on click
       ball.color = color(random(255), random(255), random(255));
     }
+
+    function displayCoordinates() {
+      // Display the current mouseX and mouseY values
+      fill(255);
+      textSize(16);
+      textAlign(LEFT, BOTTOM);
+      text(`X: ${mouseX}, Y: ${mouseY}`, 10, height - 10);
+    }
   </script>
 </body>
 </html>
-
