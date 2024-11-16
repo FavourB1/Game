@@ -29,7 +29,7 @@
     const zones = [
       { x: 200, y: 200, w: 100, h: 100, name: "phone", message: "The owner is studying, phone cannot be answered." },
       { x: 500, y: 200, w: 150, h: 100, name: "computer", message: "The computer is locked with a password." },
-      { x: 300, y: 500, w: 120, h: 80, name: "book", message: "The book is open to a difficult chapter." }
+      { x: 300, y: 500, w: 120, h: 80, name: "book", message: "The book is open to an interesting chapter." }
     ];
 
     function preload() {
