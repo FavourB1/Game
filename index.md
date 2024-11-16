@@ -26,21 +26,17 @@
     let message = ""; // Message to display when zones are clicked
     let score = 0; // Score variable
     let interactions = 0; // Interactions counter
-    const totalZones = 6; // Total number of interactive zones
+    const totalZones = 3; // Total number of interactive zones
 
     // Define interactive zones
     const zones = [
-      { x: 200, y: 200, w: 100, h: 100, name: "phone", message: "The owner is studying, phone cannot be answered.", score: true },
-      { x: 500, y: 200, w: 150, h: 100, name: "computer", message: "The computer is unlocked.", score: true },
-      { x: 300, y: 500, w: 120, h: 80, name: "book", message: "The book is open to a difficult chapter.", score: true },
-      { x: 400, y: 100, w: 70, h: 70, name: "pen", message: "This pen is out of ink.", score: true },
-      { x: 600, y: 300, w: 100, h: 150, name: "flower vase", message: "The flower vase has a beautiful arrangement.", score: false },
-      { x: 700, y: 400, w: 80, h: 80, name: "hair", message: "Some hair is on the table.", score: false },
-      // Add more zones as needed, setting score: false for non-scoring objects
+      { x: 200, y: 200, w: 100, h: 100, name: "phone", message: "The owner is studying, phone cannot be answered." },
+      { x: 500, y: 200, w: 150, h: 100, name: "computer", message: "The computer is locked with a password." },
+      { x: 300, y: 500, w: 120, h: 80, name: "book", message: "The book is open to a difficult chapter." }
     ];
 
     function preload() {
-      bgImage = loadImage('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAA...'); // Base64 image string
+      bgImage = loadImage('afro.png'); // Background image
     }
 
     function setup() {
@@ -57,22 +53,9 @@
           noFill(); // Make zones visible for debugging
           stroke(255, 0, 0);
           rect(zone.x, zone.y, zone.w, zone.h);
-
-          // Show coordinates when hovering
-          if (
-            mouseX > zone.x &&
-            mouseX < zone.x + zone.w &&
-            mouseY > zone.y &&
-            mouseY < zone.y + zone.h
-          ) {
-            fill(0);
-            textSize(16);
-            textAlign(CENTER, BOTTOM);
-            text(`${zone.name} (X: ${zone.x}, Y: ${zone.y})`, zone.x + zone.w / 2, zone.y + zone.h + 20);
-          }
         });
 
-        // Display the clicked message and object name
+        // Display the clicked message
         fill(0);
         textSize(20);
         textAlign(CENTER, CENTER);
@@ -106,10 +89,8 @@
             mouseY > zone.y &&
             mouseY < zone.y + zone.h
           ) {
-            message = zone.name + ": " + zone.message; // Set the message when a zone is clicked
-            if (zone.score) {
-              score += 10; // Increase the score only for correct choices
-            }
+            message = zone.message; // Set the message when a zone is clicked
+            score += 10; // Increase the score
             interactions++; // Increase the interaction count
 
             // Check if all zones have been clicked
