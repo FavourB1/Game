@@ -30,8 +30,8 @@
 
     // Define interactive zones
     const zones = [
-      { x: 200, y: 200, w: 100, h: 100, name: "phone", message: "The owner is studying, phone cannot be answered.", score: true },
-      { x: 500, y: 200, w: 150, h: 100, name: "computer", message: "The computer is locked with a password.", score: true },
+      { x: 200, y: 200, w: 100, h: 100, name: "phone", message: "The owner is studying, phone cannot be answered.", score: false },
+      { x: 500, y: 200, w: 150, h: 100, name: "computer", message: "The computer is unlocked.", score: true },
       { x: 300, y: 500, w: 120, h: 80, name: "book", message: "The book is open to a difficult chapter.", score: true },
       { x: 400, y: 100, w: 70, h: 70, name: "pen", message: "This pen is out of ink.", score: true },
       { x: 600, y: 300, w: 100, h: 150, name: "flower vase", message: "The flower vase has a beautiful arrangement.", score: false },
