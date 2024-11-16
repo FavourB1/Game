@@ -20,10 +20,13 @@
     }
   </style>
 </head>
-<body>
+<body id="sketch-holder">
   <script>
     let bgImage;
     let message = ""; // Message to display when zones are clicked
+    let score = 0; // Score variable
+    let interactions = 0; // Interactions counter
+    const totalZones = 3; // Total number of interactive zones
 
     // Define interactive zones
     const zones = [
@@ -37,42 +40,66 @@
     }
 
     function setup() {
-      let cnv = createCanvas(1000, 1000);
-      cnv.parent('body');
+      let cnv = createCanvas(windowWidth, windowHeight);
+      cnv.parent('sketch-holder');
     }
 
     function draw() {
       background(bgImage);
 
-      // Draw interactive zones
-      zones.forEach(zone => {
-        noFill(); // Make zones visible for debugging
-        stroke(255, 0, 0);
-        rect(zone.x, zone.y, zone.w, zone.h);
-      });
+      if (interactions < totalZones) {
+        // Draw interactive zones
+        zones.forEach(zone => {
+          noFill(); // Make zones visible for debugging
+          stroke(255, 0, 0);
+          rect(zone.x, zone.y, zone.w, zone.h);
+        });
 
-      // Display the clicked message
-      fill(0);
-      textSize(20);
-      textAlign(CENTER, CENTER);
-      text(message, width / 2, height - 50); // Display at the bottom of the canvas
+        // Display the clicked message
+        fill(0);
+        textSize(20);
+        textAlign(CENTER, CENTER);
+        text(message, width / 2, height - 50); // Display at the bottom of the canvas
 
-      // Show mouse coordinates
-      displayCoordinates();
+        // Display the score
+        fill(0);
+        textSize(20);
+        textAlign(LEFT, TOP);
+        text("Score: " + score, 10, 10);
+
+        // Show mouse coordinates
+        displayCoordinates();
+      } else {
+        // Display ending screen
+        background(200);
+        fill(0);
+        textSize(32);
+        textAlign(CENTER, CENTER);
+        text("Game Over! Final Score: " + score, width / 2, height / 2);
+      }
     }
 
     function mousePressed() {
-      // Check if mouse is inside any interactive zone
-      zones.forEach(zone => {
-        if (
-          mouseX > zone.x &&
-          mouseX < zone.x + zone.w &&
-          mouseY > zone.y &&
-          mouseY < zone.y + zone.h
-        ) {
-          message = zone.message; // Set the message when a zone is clicked
-        }
-      });
+      if (interactions < totalZones) {
+        // Check if mouse is inside any interactive zone
+        zones.forEach(zone => {
+          if (
+            mouseX > zone.x &&
+            mouseX < zone.x + zone.w &&
+            mouseY > zone.y &&
+            mouseY < zone.y + zone.h
+          ) {
+            message = zone.message; // Set the message when a zone is clicked
+            score += 10; // Increase the score
+            interactions++; // Increase the interaction count
+
+            // Check if all zones have been clicked
+            if (interactions >= totalZones) {
+              message = ""; // Clear the message
+            }
+          }
+        });
+      }
     }
 
     function displayCoordinates() {
