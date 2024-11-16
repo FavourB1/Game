@@ -34,8 +34,8 @@
       { x: 500, y: 200, w: 150, h: 100, name: "computer", message: "The computer is locked with a password.", score: true },
       { x: 300, y: 500, w: 120, h: 80, name: "book", message: "The book is open to a difficult chapter.", score: true },
       { x: 400, y: 100, w: 70, h: 70, name: "pen", message: "This pen is out of ink.", score: true },
-      { x: 600, y: 300, w: 100, h: 150, name: "flower vase", message: "The flower vase has a beautiful arrangement.", score: true },
-      { x: 700, y: 400, w: 80, h: 80, name: "hair", message: "Some hair is on the table.", score: true },
+      { x: 600, y: 300, w: 100, h: 150, name: "flower vase", message: "The flower vase has a beautiful arrangement.", score: false },
+      { x: 700, y: 400, w: 80, h: 80, name: "hair", message: "Some hair is on the table.", score: false },
       // Add more zones as needed, setting score: false for non-scoring objects
     ];
 
@@ -57,6 +57,19 @@
           noFill(); // Make zones visible for debugging
           stroke(255, 0, 0);
           rect(zone.x, zone.y, zone.w, zone.h);
+
+          // Show coordinates when hovering
+          if (
+            mouseX > zone.x &&
+            mouseX < zone.x + zone.w &&
+            mouseY > zone.y &&
+            mouseY < zone.y + zone.h
+          ) {
+            fill(0);
+            textSize(16);
+            textAlign(CENTER, BOTTOM);
+            text(`${zone.name} (X: ${zone.x}, Y: ${zone.y})`, zone.x + zone.w / 2, zone.y + zone.h + 20);
+          }
         });
 
         // Display the clicked message and object name
@@ -65,55 +78,3 @@
         textAlign(CENTER, CENTER);
         text(message, width / 2, height - 50); // Display at the bottom of the canvas
 
-        // Display the score
-        fill(0);
-        textSize(20);
-        textAlign(LEFT, TOP);
-        text("Score: " + score, 10, 10);
-
-        // Show mouse coordinates
-        displayCoordinates();
-      } else {
-        // Display ending screen
-        background(200);
-        fill(0);
-        textSize(32);
-        textAlign(CENTER, CENTER);
-        text("Game Over! Final Score: " + score, width / 2, height / 2);
-      }
-    }
-
-    function mousePressed() {
-      if (interactions < totalZones) {
-        // Check if mouse is inside any interactive zone
-        zones.forEach(zone => {
-          if (
-            mouseX > zone.x &&
-            mouseX < zone.x + zone.w &&
-            mouseY > zone.y &&
-            mouseY < zone.y + zone.h
-          ) {
-            message = zone.name + ": " + zone.message; // Set the message when a zone is clicked
-            if (zone.score) {
-              score += 10; // Increase the score only for correct choices
-            }
-            interactions++; // Increase the interaction count
-
-            // Check if all zones have been clicked
-            if (interactions >= totalZones) {
-              message = ""; // Clear the message
-            }
-          }
-        });
-      }
-    }
-
-    function displayCoordinates() {
-      fill(255);
-      textSize(16);
-      textAlign(LEFT, BOTTOM);
-      text(`X: ${mouseX}, Y: ${mouseY}`, 10, height - 10);
-    }
-  </script>
-</body>
-</html>
